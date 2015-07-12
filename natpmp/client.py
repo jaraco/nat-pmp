@@ -1,36 +1,37 @@
-#!/usr/bin/env python
-# Yiming Liu
-# A NAT-PMP client implementation using NATPMP.py
-
-import getopt, sys
+import argparse
 
 import natpmp
 
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('public_port')
+    parser.add_argument('private_port')
+    parser.add_argument(
+        '-u',
+        '--udp',
+        dest='protocol',
+        default=natpmp.NATPMP_PROTOCOL_TCP,
+        action='store_const',
+        const=natpmp.NATPMP_PROTOCOL_UDP,
+    )
+    parser.add_argument('--lifetime', type=int, default=3600,
+        help='lifetime in seconds')
+    parser.add_argument('--gateway', help='gateway IP address')
+    return parser.parse_args()
+
+
 def main():
-    if len(sys.argv) < 3:
-        print("usage: natpmp-client.py [-u] [-l lifetime] [-g gateway_addr] public_port private_port")
-        sys.exit(-1)
-
-    opts, args = getopt.getopt(sys.argv[1:], "ul:g:")
-    public_port = int(args[0])
-    private_port = int(args[1])
-    protocol = natpmp.NATPMP_PROTOCOL_TCP
-    lifetime = 3600
-    gateway = None
-
-    for opt in opts:
-        name, val = opt
-        if name == "-u":
-            protocol = natpmp.NATPMP_PROTOCOL_UDP
-        elif name == "-l":
-            lifetime = int(val)
-        elif name == "-g":
-            gateway = val
-
-    if not gateway:
-        gateway = natpmp.get_gateway_addr()
-    res = natpmp.map_port(protocol, public_port, private_port, lifetime, gateway_ip=gateway)
+    args = get_args()
+    res = natpmp.map_port(
+        args.protocol,
+        args.public_port,
+        args.private_port,
+        args.lifetime,
+        gateway_ip=args.gateway or natpmp.get_gateway_addr(),
+    )
     print(res)
+
 
 if __name__=="__main__":
     main()
