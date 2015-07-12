@@ -1,3 +1,9 @@
+Provides functions to interact with NAT-PMP gateways implementing version 0
+of the NAT-PMP draft specification.
+
+Forked from `py-natpmp <https://github.com/yimingliu/py-natpmp>`_ by
+Yiming Liu.
+
 ** Introduction
 py-natpmp is a NAT-PMP (Network Address Translation Port Mapping Protocol) library and testing client in Python. The client allows you to set up dynamic port mappings on NAT-PMP compatible routers. Thus this is a means for dynamic NAT traversal with routers that talk NAT-PMP. In practical terms, this is basically limited to the newer Apple AirPort base stations and the AirPort Express, which have support for this protocol.
 
