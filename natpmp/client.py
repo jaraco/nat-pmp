@@ -29,7 +29,8 @@ def main():
 
     if not gateway:
         gateway = natpmp.get_gateway_addr()
-    print natpmp.map_port(protocol, public_port, private_port, lifetime, gateway_ip=gateway)
+    res = natpmp.map_port(protocol, public_port, private_port, lifetime, gateway_ip=gateway)
+    print(res)
 
 if __name__=="__main__":
     main()
