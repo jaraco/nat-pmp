@@ -44,7 +44,7 @@ setup_params = dict(
 	],
 	entry_points={
 		'console_scripts': [
-			'natpmp-client.py = natpmp.natpmp_client:main',
+			'natpmp-client = natpmp.client:main',
 		],
 	},
 )
