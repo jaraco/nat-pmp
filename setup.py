@@ -3,7 +3,7 @@ import sys, os
 
 version = '0.2.3'
 
-setup(name='py-natpmp',
+setup(name='NAT-PMP',
       version=version,
       description="Python classes for interacting with NAT-PMP v0",
       long_description="""\
