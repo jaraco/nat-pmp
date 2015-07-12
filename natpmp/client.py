@@ -5,8 +5,8 @@ import natpmp
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('public_port')
-    parser.add_argument('private_port')
+    parser.add_argument('public_port', type=int)
+    parser.add_argument('private_port', type=int)
     parser.add_argument(
         '-u',
         '--udp',
@@ -15,9 +15,9 @@ def get_args():
         action='store_const',
         const=natpmp.NATPMP_PROTOCOL_UDP,
     )
-    parser.add_argument('--lifetime', type=int, default=3600,
+    parser.add_argument('-l', '--lifetime', type=int, default=3600,
         help='lifetime in seconds')
-    parser.add_argument('--gateway', help='gateway IP address')
+    parser.add_argument('-g', '--gateway', help='gateway IP address')
     return parser.parse_args()
 
 
