@@ -3,6 +3,8 @@
 
 Initial release as "NAT-PMP", based on py-natpmp 0.2.4.
 
+Client may be invoked with simply ``python -m natpmp.client``.
+
 py-natpmp
 =========
 
