@@ -43,30 +43,27 @@ NATPMP_RESULT_UNSUPPORTED_OPERATION = 5  # not a supported opcode
 
 NATPMP_ERROR_DICT = {
     NATPMP_RESULT_SUCCESS: "No error.",
-    NATPMP_RESULT_UNSUPPORTED_VERSION: "The protocol version "
-                                       "specified is unsupported.",
-    NATPMP_RESULT_NOT_AUTHORIZED: "The operation was refused.  "
-                                  "NAT-PMP may be turned off on "
-                                  "gateway.",
+    NATPMP_RESULT_UNSUPPORTED_VERSION:
+        "The protocol version specified is unsupported.",
+    NATPMP_RESULT_NOT_AUTHORIZED:
+        "The operation was refused. NAT-PMP may be turned off on gateway.",
     # network failure
-    NATPMP_RESULT_NETWORK_FAILURE: "There was a network failure.  "
-                                   "The gateway may not have an IP "
-                                   "address.",
+    NATPMP_RESULT_NETWORK_FAILURE:
+        "There was a network failure. The gateway may not have an IP address.",
     # can not create more mappings
-    NATPMP_RESULT_OUT_OF_RESOURCES: "The NAT-PMP gateway is out of "
-                                    "resources and cannot create "
-                                    "more mappings.",
+    NATPMP_RESULT_OUT_OF_RESOURCES:
+        "The NAT-PMP gateway is out of resources and cannot create more"
+        "mappings.",
     # not a supported opcode
-    NATPMP_RESULT_UNSUPPORTED_OPERATION: "The NAT-PMP gateway does "
-                                         "not support this "
-                                         "operation",
-    NATPMP_GATEWAY_NO_SUPPORT: "The gateway does not support "
-                               "NAT-PMP",
-    NATPMP_GATEWAY_NO_VALID_GATEWAY: "No valid gateway address was "
-                                     "specified.",
-    NATPMP_GATEWAY_CANNOT_FIND: "Cannot automatically determine "
-                                "gateway address.  Must specify "
-                                "manually."
+    NATPMP_RESULT_UNSUPPORTED_OPERATION:
+        "The NAT-PMP gateway does not support this operation",
+    NATPMP_GATEWAY_NO_SUPPORT:
+        "The gateway does not support NAT-PMP",
+    NATPMP_GATEWAY_NO_VALID_GATEWAY:
+        "No valid gateway address was specified.",
+    NATPMP_GATEWAY_CANNOT_FIND:
+        "Cannot automatically determine gateway address. Must specify "
+        "manually."
 }
 
 
@@ -88,18 +85,20 @@ class NATPMPRequest(object):
 
 
 class PublicAddressRequest(NATPMPRequest):
-    """Represents a NAT-PMP request to the local gateway for a public address.
-       As per the specification, this is a generic request with the opcode = 0.
+    """
+    Represents a NAT-PMP request to the local gateway for a public address.
+    As per the specification, this is a generic request with the opcode = 0.
     """
     def __init__(self, version=0):
         NATPMPRequest.__init__(self, version, 0)
 
 
 class PortMapRequest(NATPMPRequest):
-    """Represents a NAT-PMP request to the local gateway for a port mapping.
-       As per the specification, this request extends NATPMPRequest with
-       the fields private_port, public_port, and lifetime.  The first two
-       are 2-byte unsigned shorts, and the last is a 4-byte unsigned integer.
+    """
+    Represents a NAT-PMP request to the local gateway for a port mapping.
+    As per the specification, this request extends NATPMPRequest with
+    the fields private_port, public_port, and lifetime.  The first two
+    are 2-byte unsigned shorts, and the last is a 4-byte unsigned integer.
     """
     def __init__(
             self, protocol, private_port, public_port, lifetime=3600,
@@ -118,11 +117,12 @@ class PortMapRequest(NATPMPRequest):
 
 
 class NATPMPResponse(object):
-    """Represents a generic NAT-PMP response from the local gateway.  The
-       generic response has fields for version, opcode, result, and secs
-       since last epoch (last boot of the NAT gateway).  As per the
-       specification, the opcode is offset by 128 from the opcode of
-       the original request.
+    """
+    Represents a generic NAT-PMP response from the local gateway.  The
+    generic response has fields for version, opcode, result, and secs
+    since last epoch (last boot of the NAT gateway).  As per the
+    specification, the opcode is offset by 128 from the opcode of
+    the original request.
     """
     def __init__(self, version, opcode, result, sec_since_epoch):
         self.version = version
@@ -136,12 +136,13 @@ class NATPMPResponse(object):
 
 
 class PublicAddressResponse(NATPMPResponse):
-    """Represents a NAT-PMP response from the local gateway to a
-       public-address request.  It has one additional 4-byte field
-       containing the IP returned.
+    """
+    Represents a NAT-PMP response from the local gateway to a
+    public-address request.  It has one additional 4-byte field
+    containing the IP returned.
 
-       The member variable ip contains the Python-friendly string form, while
-       ip_int contains the same in the original 4-byte unsigned int.
+    The member variable ip contains the Python-friendly string form, while
+    ip_int contains the same in the original 4-byte unsigned int.
     """
     def __init__(self, bytes):
         if (len(bytes) > 12):
@@ -161,12 +162,13 @@ class PublicAddressResponse(NATPMPResponse):
 
 
 class PortMapResponse(NATPMPResponse):
-    """Represents a NAT-PMP response from the local gateway to a
-       public-address request.  The response contains the private port,
-       public port, and the lifetime of the mapping in addition to typical
-       NAT-PMP headers.  Note that the port mapping assigned is
-       NOT NECESSARILY the port requested (see the specification
-       for details).
+    """
+    Represents a NAT-PMP response from the local gateway to a
+    public-address request.  The response contains the private port,
+    public port, and the lifetime of the mapping in addition to typical
+    NAT-PMP headers.  Note that the port mapping assigned is
+    NOT NECESSARILY the port requested (see the specification
+    for details).
     """
     def __init__(self, bytes):
         if len(bytes) > 16:
@@ -200,7 +202,7 @@ class NATPMPResultError(NATPMPError):
 
 class NATPMPNetworkError(NATPMPError):
     """Used when a network error occurred while communicating
-       with the NAT gateway."""
+    with the NAT gateway."""
     pass
 
 
@@ -218,7 +220,7 @@ def get_gateway_addr():
 
 def error_str(result_code):
     """Takes a numerical error code and returns a human-readable
-       error string.
+    error string.
     """
     result = NATPMP_ERROR_DICT.get(result_code)
     if not result:
@@ -227,11 +229,12 @@ def error_str(result_code):
 
 
 def get_gateway_socket(gateway):
-    """Takes a gateway address string and returns a non-blocking UDP
-       socket to communicate with its NAT-PMP implementation on
-       NATPMP_PORT.
+    """
+    Takes a gateway address string and returns a non-blocking UDP
+    socket to communicate with its NAT-PMP implementation on
+    NATPMP_PORT.
 
-       e.g. addr = get_gateway_socket('10.0.1.1')
+    e.g. addr = get_gateway_socket('10.0.1.1')
     """
     if not gateway:
         raise NATPMPNetworkError(
@@ -244,16 +247,17 @@ def get_gateway_socket(gateway):
 
 
 def get_public_address(gateway_ip=None, retry=9):
-    """A high-level function that returns the public interface IP of
-       the current host by querying the NAT-PMP gateway.  IP is
-       returned as string.
+    """
+    A high-level function that returns the public interface IP of
+    the current host by querying the NAT-PMP gateway.  IP is
+    returned as string.
 
-       Takes two possible keyword arguments:
-            gateway_ip - the IP to the NAT-PMP compatible gateway.
-                         Defaults to using auto-detection function
-                         get_gateway_addr()
-            retry - the number of times to retry the request if unsuccessful.
-                    Defaults to 9 as per specification.
+    Takes two possible keyword arguments:
+        gateway_ip - the IP to the NAT-PMP compatible gateway.
+                     Defaults to using auto-detection function
+                     get_gateway_addr()
+        retry - the number of times to retry the request if unsuccessful.
+                Defaults to 9 as per specification.
     """
     if gateway_ip is None:
         gateway_ip = get_gateway_addr()
@@ -272,21 +276,22 @@ def get_public_address(gateway_ip=None, retry=9):
 def map_tcp_port(
         public_port, private_port, lifetime=3600, gateway_ip=None, retry=9,
         use_exception=True):
-    """A high-level wrapper to map_port() that requests a mapping
-       for a public TCP port on the NAT to a private TCP port on this host.
-       Returns the complete response on success.
+    """
+    A high-level wrapper to map_port() that requests a mapping
+    for a public TCP port on the NAT to a private TCP port on this host.
+    Returns the complete response on success.
 
-            public_port - the public port of the mapping requested
-            private_port - the private port of the mapping requested
-            lifetime - the duration of the mapping in seconds.
-                       Defaults to 3600, per specification.
-            gateway_ip - the IP to the NAT-PMP compatible gateway.
-                        Defaults to using auto-detection function
-                        get_gateway_addr()
-            retry - the number of times to retry the request if unsuccessful.
-                    Defaults to 9 as per specification.
-            use_exception - throw an exception if an error result is
-                           received from the gateway.  Defaults to True.
+        public_port - the public port of the mapping requested
+        private_port - the private port of the mapping requested
+        lifetime - the duration of the mapping in seconds.
+                   Defaults to 3600, per specification.
+        gateway_ip - the IP to the NAT-PMP compatible gateway.
+                    Defaults to using auto-detection function
+                    get_gateway_addr()
+        retry - the number of times to retry the request if unsuccessful.
+                Defaults to 9 as per specification.
+        use_exception - throw an exception if an error result is
+                       received from the gateway.  Defaults to True.
     """
     return map_port(
         NATPMP_PROTOCOL_TCP, public_port, private_port, lifetime,
@@ -296,21 +301,22 @@ def map_tcp_port(
 def map_udp_port(
         public_port, private_port, lifetime=3600, gateway_ip=None,
         retry=9, use_exception=True):
-    """A high-level wrapper to map_port() that requests a mapping for
-       a public UDP port on the NAT to a private UDP port on this host.
-       Returns the complete response on success.
+    """
+    A high-level wrapper to map_port() that requests a mapping for
+    a public UDP port on the NAT to a private UDP port on this host.
+    Returns the complete response on success.
 
-            public_port - the public port of the mapping requested
-            private_port - the private port of the mapping requested
-            lifetime - the duration of the mapping in seconds.
-                       Defaults to 3600, per specification.
-            gateway_ip - the IP to the NAT-PMP compatible gateway.
-                         Defaults to using auto-detection function
-                         get_gateway_addr()
-            retry - the number of times to retry the request if unsuccessful.
-                    Defaults to 9 as per specification.
-            use_exception - throw an exception if an error result is
-                            received from the gateway.  Defaults to True.
+        public_port - the public port of the mapping requested
+        private_port - the private port of the mapping requested
+        lifetime - the duration of the mapping in seconds.
+                   Defaults to 3600, per specification.
+        gateway_ip - the IP to the NAT-PMP compatible gateway.
+                     Defaults to using auto-detection function
+                     get_gateway_addr()
+        retry - the number of times to retry the request if unsuccessful.
+                Defaults to 9 as per specification.
+        use_exception - throw an exception if an error result is
+                        received from the gateway.  Defaults to True.
     """
     return map_port(
         NATPMP_PROTOCOL_UDP, public_port, private_port, lifetime,
@@ -320,21 +326,22 @@ def map_udp_port(
 def map_port(
         protocol, public_port, private_port, lifetime=3600, gateway_ip=None,
         retry=9, use_exception=True):
-    """A function to map public_port to private_port of protocol.
-       Returns the complete response on success.
+    """
+    A function to map public_port to private_port of protocol.
+    Returns the complete response on success.
 
-            protocol - NATPMP_PROTOCOL_UDP or NATPMP_PROTOCOL_TCP
-            public_port - the public port of the mapping requested
-            private_port - the private port of the mapping requested
-            lifetime - the duration of the mapping in seconds.
-                       Defaults to 3600, per specification.
-            gateway_ip - the IP to the NAT-PMP compatible gateway.
-                         Defaults to using auto-detection function
-                         get_gateway_addr()
-            retry - the number of times to retry the request if unsuccessful.
-                    Defaults to 9 as per specification.
-            use_exception - throw an exception if an error result
-                            is received from the gateway.  Defaults to True.
+        protocol - NATPMP_PROTOCOL_UDP or NATPMP_PROTOCOL_TCP
+        public_port - the public port of the mapping requested
+        private_port - the private port of the mapping requested
+        lifetime - the duration of the mapping in seconds.
+                   Defaults to 3600, per specification.
+        gateway_ip - the IP to the NAT-PMP compatible gateway.
+                     Defaults to using auto-detection function
+                     get_gateway_addr()
+        retry - the number of times to retry the request if unsuccessful.
+                Defaults to 9 as per specification.
+        use_exception - throw an exception if an error result
+                        is received from the gateway.  Defaults to True.
     """
     if protocol not in [NATPMP_PROTOCOL_UDP, NATPMP_PROTOCOL_TCP]:
         raise ValueError(
