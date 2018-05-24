@@ -196,23 +196,19 @@ class PortMapResponse(NATPMPResponse):
 
 class NATPMPError(Exception):
     """Generic exception state.  May be used to represent unknown errors."""
-    pass
 
 
 class NATPMPResultError(NATPMPError):
     """Used when a NAT gateway responds with an error-state response."""
-    pass
 
 
 class NATPMPNetworkError(NATPMPError):
     """Used when a network error occurred while communicating
     with the NAT gateway."""
-    pass
 
 
 class NATPMPUnsupportedError(NATPMPError):
     """Used when a NAT gateway does not support NAT-PMP."""
-    pass
 
 
 def get_gateway_addr():
