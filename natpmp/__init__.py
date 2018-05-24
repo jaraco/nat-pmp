@@ -405,9 +405,7 @@ def send_request_with_retry(
 class NatPMP:
     def forward_port(self, proto, src_port, dest_ip, dest_port=None):
         proto = proto.upper()
-        valid_protos = ["TCP", "UDP"]
-        if proto not in valid_protos:
-            raise Exception("Invalid protocol for forwarding.")
+        proto = globals()['NATPMP_PROTOCOL_{proto}'.format(**locals())]
 
         valid_ports = range(1, 65535)
         if src_port not in valid_ports:
@@ -417,8 +415,4 @@ class NatPMP:
         if dest_port is None:
             dest_port = src_port
 
-        if proto == "TCP":
-            proto = 1
-        else:
-            proto = 2
         return map_port(proto, src_port, dest_port)
