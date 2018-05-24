@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 NAT-PMP client library
 
