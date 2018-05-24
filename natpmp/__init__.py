@@ -293,9 +293,6 @@ def get_public_address(gateway_ip=None, retry=9):
         gateway_ip, addr_request, response_data_class=PublicAddressResponse,
         retry=retry, response_size=12)
     if addr_response.result != 0:
-        # sys.stderr.write("NAT-PMP error %d: %s\n" % (
-        # addr_response.result, error_str(addr_response.result)))
-        # sys.stderr.flush()
         raise NATPMPResultError(
             addr_response.result,
             error_str(addr_response.result), addr_response)
@@ -452,17 +449,3 @@ class NatPMP:
         else:
             proto = 2
         return map_port(proto, src_port, dest_port)
-
-
-if __name__ == "__main__":
-    """
-    #
-    addr = get_public_address()
-    map_resp = map_tcp_port(62001, 62001)
-    print (addr)
-    print (map_resp.__dict__)
-
-    #xxxxxx = NatPMP()
-    #print(xxxxxx.forward_port("TCP", 12156, "192.168.0.4"))
-    #print(n.is_port_forwarded(12156, "tcp"))
-    """
