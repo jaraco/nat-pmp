@@ -403,9 +403,6 @@ def send_request_with_retry(
 
 
 class NatPMP:
-    def __init__(self, interface="default"):
-        self.interface = interface
-
     def forward_port(self, proto, src_port, dest_ip, dest_port=None):
         proto = proto.upper()
         valid_protos = ["TCP", "UDP"]
