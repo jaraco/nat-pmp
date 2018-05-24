@@ -68,7 +68,7 @@ NATPMP_ERROR_DICT = {
     NATPMP_GATEWAY_CANNOT_FIND: "Cannot automatically determine "
                                 "gateway address.  Must specify "
                                 "manually."
-    }
+}
 
 
 class NATPMPRequest(object):
@@ -103,7 +103,8 @@ class PortMapRequest(NATPMPRequest):
        are 2-byte unsigned shorts, and the last is a 4-byte unsigned integer.
     """
     def __init__(
-      self, protocol, private_port, public_port, lifetime=3600, version=0):
+            self, protocol, private_port, public_port, lifetime=3600,
+            version=0):
         NATPMPRequest.__init__(self, version, protocol)
         self.private_port = private_port
         self.public_port = public_port
@@ -112,8 +113,8 @@ class PortMapRequest(NATPMPRequest):
     def toBytes(self):
         s = NATPMPRequest.toBytes(self) \
             + struct.pack(
-              '!HHHI', NATPMP_RESERVED_VAL, self.private_port,
-              self.public_port, self.lifetime)
+                '!HHHI', NATPMP_RESERVED_VAL, self.private_port,
+                self.public_port, self.lifetime)
         return s
 
 
@@ -149,7 +150,7 @@ class PublicAddressResponse(NATPMPResponse):
         version, opcode, result, sec_since_epoch, self.ip_int = struct.unpack(
             "!BBHII", bytes)
         NATPMPResponse.__init__(self, version, opcode, result, sec_since_epoch)
-        self.ip = socket.inet_ntoa(bytes[8:8+4])
+        self.ip = socket.inet_ntoa(bytes[8:8 + 4])
 
     def __str__(self):
         return (
