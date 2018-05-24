@@ -22,6 +22,8 @@ import select
 
 import netifaces
 
+__metaclass__ = type
+
 NATPMP_PORT = 5351
 
 NATPMP_RESERVED_VAL = 0
@@ -67,7 +69,7 @@ NATPMP_ERROR_DICT = {
 }
 
 
-class NATPMPRequest(object):
+class NATPMPRequest:
     """Represents a basic NAT-PMP request.  This currently consists of the
        1-byte fields version and opcode.
 
@@ -90,7 +92,7 @@ class PublicAddressRequest(NATPMPRequest):
     As per the specification, this is a generic request with the opcode = 0.
     """
     def __init__(self, version=0):
-        NATPMPRequest.__init__(self, version, 0)
+        super(PublicAddressRequest, self).__init__(version, 0)
 
 
 class PortMapRequest(NATPMPRequest):
@@ -103,7 +105,7 @@ class PortMapRequest(NATPMPRequest):
     def __init__(
             self, protocol, private_port, public_port, lifetime=3600,
             version=0):
-        NATPMPRequest.__init__(self, version, protocol)
+        super(PortMapRequest, self).__init__(version, protocol)
         self.private_port = private_port
         self.public_port = public_port
         self.lifetime = lifetime
@@ -116,7 +118,7 @@ class PortMapRequest(NATPMPRequest):
         return s
 
 
-class NATPMPResponse(object):
+class NATPMPResponse:
     """
     Represents a generic NAT-PMP response from the local gateway.  The
     generic response has fields for version, opcode, result, and secs
@@ -149,7 +151,8 @@ class PublicAddressResponse(NATPMPResponse):
             bytes = bytes[:12]
         version, opcode, result, sec_since_epoch, self.ip_int = struct.unpack(
             "!BBHII", bytes)
-        NATPMPResponse.__init__(self, version, opcode, result, sec_since_epoch)
+        super(PublicAddressResponse, self).__init__(
+            version, opcode, result, sec_since_epoch)
         self.ip = socket.inet_ntoa(bytes[8:8 + 4])
 
     def __str__(self):
@@ -177,7 +180,8 @@ class PortMapResponse(NATPMPResponse):
             version, opcode, result, sec_since_epoch, self.private_port,
             self.public_port, self.lifetime
         ) = struct.unpack('!BBHIHHI', bytes)
-        NATPMPResponse.__init__(self, version, opcode, result, sec_since_epoch)
+        super(NATPMPResponse, self).__init__(
+            version, opcode, result, sec_since_epoch)
 
     def __str__(self):
         return (
