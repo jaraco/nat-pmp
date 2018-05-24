@@ -17,12 +17,6 @@ http://files.dns-sd.org/draft-cheshire-nat-pmp.txt
 
 Requires Python 2.3 or later.
 Tested on Python 2.5, 2.6 against Apple AirPort Express.
-
-Coinbend change log:
-* Changed gateway auto-detection to use netifaces which makes
-this library more cross-platform.
-* Added an easy to use port forwarding function with the same
-interface as that seen in the UPnP module.
 """
 
 import struct
