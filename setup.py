@@ -33,6 +33,7 @@ params = dict(
 	),
 	python_requires='>=2.7',
 	install_requires=[
+		'netifaces',
 	],
 	extras_require={
 		'testing': [
