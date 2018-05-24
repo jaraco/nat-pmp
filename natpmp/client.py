@@ -15,7 +15,8 @@ def get_args():
         action='store_const',
         const=natpmp.NATPMP_PROTOCOL_UDP,
     )
-    parser.add_argument('--lifetime', type=int, default=3600,
+    parser.add_argument(
+        '--lifetime', type=int, default=3600,
         help='lifetime in seconds')
     parser.add_argument('--gateway', help='gateway IP address')
     return parser.parse_args()
@@ -33,5 +34,5 @@ def main():
     print(res)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
