@@ -178,7 +178,7 @@ class PortMapResponse(NATPMPResponse):
             version, opcode, result, sec_since_epoch, self.private_port,
             self.public_port, self.lifetime
         ) = struct.unpack('!BBHIHHI', bytes)
-        super(NATPMPResponse, self).__init__(
+        super(PortMapResponse, self).__init__(
             version, opcode, result, sec_since_epoch)
 
     def __str__(self):
