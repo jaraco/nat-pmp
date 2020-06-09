@@ -5,8 +5,8 @@ import natpmp
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('public_port')
-    parser.add_argument('private_port')
+    parser.add_argument('public_port', type=int)
+    parser.add_argument('private_port', type=int)
     parser.add_argument(
         '-u',
         '--udp',
