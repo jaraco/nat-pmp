@@ -7,7 +7,7 @@ Welcome to |project| documentation!
    history
 
 
-.. automodule:: nat-pmp
+.. automodule:: natpmp
     :members:
     :undoc-members:
     :show-inheritance:
