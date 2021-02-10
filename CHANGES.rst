@@ -1,3 +1,10 @@
+v1.2.0
+======
+
+Require Python 3.6 or later.
+
+#1: Add type for port arguments.
+
 1.1
 ===
 
