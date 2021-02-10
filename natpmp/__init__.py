@@ -44,18 +44,21 @@ NATPMP_RESULT_UNSUPPORTED_OPERATION = 5  # not a supported opcode
 NATPMP_ERROR_DICT = {
     NATPMP_RESULT_SUCCESS: "No error.",
     NATPMP_RESULT_UNSUPPORTED_VERSION: "The protocol version specified is unsupported.",
-    NATPMP_RESULT_NOT_AUTHORIZED: "The operation was refused. NAT-PMP may be turned off on gateway.",
+    NATPMP_RESULT_NOT_AUTHORIZED: "The operation was refused. NAT-PMP may be turned "
+    "off on gateway.",
     # network failure
-    NATPMP_RESULT_NETWORK_FAILURE: "There was a network failure. The gateway may not have an IP address.",
+    NATPMP_RESULT_NETWORK_FAILURE: "There was a network failure. The gateway may not "
+    "have an IP address.",
     # can not create more mappings
-    NATPMP_RESULT_OUT_OF_RESOURCES: "The NAT-PMP gateway is out of resources and cannot create more"
-    "mappings.",
+    NATPMP_RESULT_OUT_OF_RESOURCES: "The NAT-PMP gateway is out of resources and "
+    "cannot create more mappings.",
     # not a supported opcode
-    NATPMP_RESULT_UNSUPPORTED_OPERATION: "The NAT-PMP gateway does not support this operation",
+    NATPMP_RESULT_UNSUPPORTED_OPERATION: "The NAT-PMP gateway does not support this "
+    "operation",
     NATPMP_GATEWAY_NO_SUPPORT: "The gateway does not support NAT-PMP",
     NATPMP_GATEWAY_NO_VALID_GATEWAY: "No valid gateway address was specified.",
-    NATPMP_GATEWAY_CANNOT_FIND: "Cannot automatically determine gateway address. Must specify "
-    "manually.",
+    NATPMP_GATEWAY_CANNOT_FIND: "Cannot automatically determine gateway address. Must "
+    "specify manually.",
 }
 
 
