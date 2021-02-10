@@ -131,7 +131,7 @@ class NATPMPResponse:
         self.sec_since_epoch = sec_since_epoch
 
     def __str__(self):
-        return "NATPMPResponse(%d, %d, %d, $d)" % (
+        return "NATPMPResponse(%d, %d, %d, %d)" % (
             self.version,
             self.opcode,
             self.result,
