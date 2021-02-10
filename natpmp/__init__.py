@@ -20,8 +20,6 @@ import select
 
 import netifaces
 
-__metaclass__ = type
-
 NATPMP_PORT = 5351
 
 NATPMP_RESERVED_VAL = 0
