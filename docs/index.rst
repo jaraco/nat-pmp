@@ -1,5 +1,5 @@
-Welcome to nat-pmp documentation!
-========================================
+Welcome to |project| documentation!
+===================================
 
 .. toctree::
    :maxdepth: 1
