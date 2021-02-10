@@ -5,9 +5,10 @@ Provides functions to interact with NAT-PMP gateways implementing version 0
 of the NAT-PMP draft specification.
 
 This version does not completely implement the draft standard.
+
 * It does not provide functionality to listen for address change packets.
 * It does not have a proper request queuing system, meaning that
-multiple requests may be issued in parallel, against spec recommendations.
+  multiple requests may be issued in parallel, against spec recommendations.
 
 For more information on NAT-PMP, see the NAT-PMP draft specification:
 
@@ -300,17 +301,21 @@ def map_tcp_port(
     for a public TCP port on the NAT to a private TCP port on this host.
     Returns the complete response on success.
 
-        public_port - the public port of the mapping requested
-        private_port - the private port of the mapping requested
-        lifetime - the duration of the mapping in seconds.
-                   Defaults to 3600, per specification.
-        gateway_ip - the IP to the NAT-PMP compatible gateway.
-                    Defaults to using auto-detection function
-                    get_gateway_addr()
-        retry - the number of times to retry the request if unsuccessful.
-                Defaults to 9 as per specification.
-        use_exception - throw an exception if an error result is
-                       received from the gateway.  Defaults to True.
+    public_port: the public port of the mapping requested
+
+    private_port: the private port of the mapping requested
+
+    lifetime: the duration of the mapping in seconds.
+    Defaults to 3600, per specification.
+
+    gateway_ip: the IP to the NAT-PMP compatible gateway.
+    Defaults to using auto-detection function get_gateway_addr()
+
+    retry: the number of times to retry the request if unsuccessful.
+    Defaults to 9 as per specification.
+
+    use_exception: throw an exception if an error result is
+    received from the gateway.  Defaults to True.
     """
     return map_port(
         NATPMP_PROTOCOL_TCP,
@@ -336,17 +341,21 @@ def map_udp_port(
     a public UDP port on the NAT to a private UDP port on this host.
     Returns the complete response on success.
 
-        public_port - the public port of the mapping requested
-        private_port - the private port of the mapping requested
-        lifetime - the duration of the mapping in seconds.
-                   Defaults to 3600, per specification.
-        gateway_ip - the IP to the NAT-PMP compatible gateway.
-                     Defaults to using auto-detection function
-                     get_gateway_addr()
-        retry - the number of times to retry the request if unsuccessful.
-                Defaults to 9 as per specification.
-        use_exception - throw an exception if an error result is
-                        received from the gateway.  Defaults to True.
+    public_port: the public port of the mapping requested
+
+    private_port: the private port of the mapping requested
+
+    lifetime: the duration of the mapping in seconds.
+    Defaults to 3600, per specification.
+
+    gateway_ip: the IP to the NAT-PMP compatible gateway.
+    Defaults to using auto-detection function get_gateway_addr()
+
+    retry: the number of times to retry the request if unsuccessful.
+    Defaults to 9 as per specification.
+
+    use_exception: throw an exception if an error result is
+    received from the gateway.  Defaults to True.
     """
     return map_port(
         NATPMP_PROTOCOL_UDP,
@@ -372,18 +381,23 @@ def map_port(
     A function to map public_port to private_port of protocol.
     Returns the complete response on success.
 
-        protocol - NATPMP_PROTOCOL_UDP or NATPMP_PROTOCOL_TCP
-        public_port - the public port of the mapping requested
-        private_port - the private port of the mapping requested
-        lifetime - the duration of the mapping in seconds.
-                   Defaults to 3600, per specification.
-        gateway_ip - the IP to the NAT-PMP compatible gateway.
-                     Defaults to using auto-detection function
-                     get_gateway_addr()
-        retry - the number of times to retry the request if unsuccessful.
-                Defaults to 9 as per specification.
-        use_exception - throw an exception if an error result
-                        is received from the gateway.  Defaults to True.
+    protocol: NATPMP_PROTOCOL_UDP or NATPMP_PROTOCOL_TCP
+
+    public_port: the public port of the mapping requested
+
+    private_port: the private port of the mapping requested
+
+    lifetime: the duration of the mapping in seconds.
+    Defaults to 3600, per specification.
+
+    gateway_ip: the IP to the NAT-PMP compatible gateway.
+    Defaults to using auto-detection function get_gateway_addr()
+
+    retry: the number of times to retry the request if unsuccessful.
+    Defaults to 9 as per specification.
+
+    use_exception: throw an exception if an error result
+    is received from the gateway.  Defaults to True.
     """
     if protocol not in [NATPMP_PROTOCOL_UDP, NATPMP_PROTOCOL_TCP]:
         raise ValueError("Must be either NATPMP_PROTOCOL_UDP or NATPMP_PROTOCOL_TCP")

@@ -1,3 +1,8 @@
+v1.3.1
+======
+
+Docstring cleanup.
+
 v1.3.0
 ======
 
