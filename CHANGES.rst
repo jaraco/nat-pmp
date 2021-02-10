@@ -1,3 +1,8 @@
+v1.3.0
+======
+
+Client can be invoked with simply ``python -m natpmp``.
+
 v1.2.1
 ======
 
