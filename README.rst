@@ -1,16 +1,21 @@
-.. image:: https://img.shields.io/pypi/v/NAT-PMP.svg
-   :target: https://pypi.org/project/NAT-PMP
+.. image:: https://img.shields.io/pypi/v/skeleton.svg
+   :target: `PyPI link`_
 
-.. image:: https://img.shields.io/pypi/pyversions/NAT-PMP.svg
+.. image:: https://img.shields.io/pypi/pyversions/skeleton.svg
+   :target: `PyPI link`_
 
-.. image:: https://img.shields.io/travis/jaraco/NAT-PMP/master.svg
-   :target: https://travis-ci.org/jaraco/NAT-PMP
+.. _PyPI link: https://pypi.org/project/skeleton
 
-.. .. image:: https://img.shields.io/appveyor/ci/jaraco/NAT-PMP/master.svg
-..    :target: https://ci.appveyor.com/project/jaraco/NAT-PMP/branch/master
+.. image:: https://github.com/jaraco/skeleton/workflows/Automated%20Tests/badge.svg
+   :target: https://github.com/jaraco/skeleton/actions?query=workflow%3A%22Automated+Tests%22
+   :alt: Automated Tests
 
-.. .. image:: https://readthedocs.org/projects/NAT-PMP/badge/?version=latest
-..    :target: https://NAT-PMP.readthedocs.io/en/latest/?badge=latest
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: Code style: Black
+
+.. .. image:: https://readthedocs.org/projects/skeleton/badge/?version=latest
+..    :target: https://skeleton.readthedocs.io/en/latest/?badge=latest
 
 Provides functions to interact with NAT-PMP gateways implementing version 0
 of the NAT-PMP draft specification.
