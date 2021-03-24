@@ -1,3 +1,8 @@
+v1.3.2
+======
+
+Packaging refresh.
+
 v1.3.1
 ======
 
