@@ -1,10 +1,7 @@
 .. image:: https://img.shields.io/pypi/v/NAT-PMP.svg
-   :target: `PyPI link`_
+   :target: https://pypi.org/project/NAT-PMP
 
 .. image:: https://img.shields.io/pypi/pyversions/NAT-PMP.svg
-   :target: `PyPI link`_
-
-.. _PyPI link: https://pypi.org/project/NAT-PMP
 
 .. image:: https://github.com/jaraco/NAT-PMP/workflows/tests/badge.svg
    :target: https://github.com/jaraco/NAT-PMP/actions?query=workflow%3A%22tests%22
