@@ -3,8 +3,8 @@
 
 .. image:: https://img.shields.io/pypi/pyversions/NAT-PMP.svg
 
-.. image:: https://github.com/jaraco/NAT-PMP/workflows/tests/badge.svg
-   :target: https://github.com/jaraco/NAT-PMP/actions?query=workflow%3A%22tests%22
+.. image:: https://github.com/jaraco/nat-pmp/actions/workflows/main.yml/badge.svg
+   :target: https://github.com/jaraco/nat-pmp/actions?query=workflow%3A%22tests%22
    :alt: tests
 
 .. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json
