@@ -161,7 +161,7 @@ class PublicAddressResponse(NATPMPResponse):
 
     def __str__(self):
         return (
-            "PublicAddressResponse: version %d, opcode %d, " "result %d, ssec %d, ip %s"
+            "PublicAddressResponse: version %d, opcode %d, result %d, ssec %d, ip %s"
         ) % (self.version, self.opcode, self.result, self.sec_since_epoch, self.ip)
 
 
