@@ -192,7 +192,7 @@ class PortMapResponse(NATPMPResponse):
     def __str__(self):
         return (
             "PortMapResponse: version %d, opcode %d (%d), result %d, "
-            "ssec %d, private_port %d, public port %d, lifetime %d"
+            "ssec %d, private_port %d, public_port %d, lifetime %d"
         ) % (
             self.version,
             self.opcode,
