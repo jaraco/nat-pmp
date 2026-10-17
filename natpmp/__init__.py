@@ -15,9 +15,9 @@ For more information on NAT-PMP, see the NAT-PMP draft specification:
 http://files.dns-sd.org/draft-cheshire-nat-pmp.txt
 """
 
-import struct
-import socket
 import select
+import socket
+import struct
 
 import netifaces
 
@@ -86,7 +86,7 @@ class PublicAddressRequest(NATPMPRequest):
     """
 
     def __init__(self, version=0):
-        super(PublicAddressRequest, self).__init__(version, 0)
+        super().__init__(version, 0)
 
 
 class PortMapRequest(NATPMPRequest):
@@ -98,7 +98,7 @@ class PortMapRequest(NATPMPRequest):
     """
 
     def __init__(self, protocol, private_port, public_port, lifetime=3600, version=0):
-        super(PortMapRequest, self).__init__(version, protocol)
+        super().__init__(version, protocol)
         self.private_port = private_port
         self.public_port = public_port
         self.lifetime = lifetime
@@ -130,11 +130,9 @@ class NATPMPResponse:
         self.sec_since_epoch = sec_since_epoch
 
     def __str__(self):
-        return "NATPMPResponse(%d, %d, %d, %d)" % (
-            self.version,
-            self.opcode,
-            self.result,
-            self.sec_since_epoch,
+        return (
+            f"NATPMPResponse({self.version}, {self.opcode}, "
+            f"{self.result}, {self.sec_since_epoch})"
         )
 
 
@@ -154,15 +152,15 @@ class PublicAddressResponse(NATPMPResponse):
         version, opcode, result, sec_since_epoch, self.ip_int = struct.unpack(
             "!BBHII", bytes
         )
-        super(PublicAddressResponse, self).__init__(
-            version, opcode, result, sec_since_epoch
-        )
+        super().__init__(version, opcode, result, sec_since_epoch)
         self.ip = socket.inet_ntoa(bytes[8 : 8 + 4])
 
     def __str__(self):
         return (
-            "PublicAddressResponse: version %d, opcode %d, result %d, ssec %d, ip %s"
-        ) % (self.version, self.opcode, self.result, self.sec_since_epoch, self.ip)
+            f"PublicAddressResponse: version {self.version}, "
+            f"opcode {self.opcode}, result {self.result}, "
+            f"ssec {self.sec_since_epoch}, ip {self.ip}"
+        )
 
 
 class PortMapResponse(NATPMPResponse):
@@ -187,21 +185,14 @@ class PortMapResponse(NATPMPResponse):
             self.public_port,
             self.lifetime,
         ) = struct.unpack('!BBHIHHI', bytes)
-        super(PortMapResponse, self).__init__(version, opcode, result, sec_since_epoch)
+        super().__init__(version, opcode, result, sec_since_epoch)
 
     def __str__(self):
         return (
-            "PortMapResponse: version %d, opcode %d (%d), result %d, "
-            "ssec %d, private_port %d, public port %d, lifetime %d"
-        ) % (
-            self.version,
-            self.opcode,
-            self.opcode,
-            self.result,
-            self.sec_since_epoch,
-            self.private_port,
-            self.public_port,
-            self.lifetime,
+            f"PortMapResponse: version {self.version}, "
+            f"opcode {self.opcode} ({self.opcode}), result {self.result}, "
+            f"ssec {self.sec_since_epoch}, private_port {self.private_port}, "
+            f"public port {self.public_port}, lifetime {self.lifetime}"
         )
 
 
@@ -426,12 +417,12 @@ def send_request(gateway_socket, request):
 def read_response(gateway_socket, timeout, responseSize=16):
     data = ""
     source_addr = ("", "")
-    rlist, wlist, xlist = select.select([gateway_socket], [], [], timeout)
+    rlist, _, _ = select.select([gateway_socket], [], [], timeout)
     if rlist:
         resp_socket = rlist[0]
         try:
             data, source_addr = resp_socket.recvfrom(responseSize)
-        except Exception:
+        except OSError:
             return None, None
     return data, source_addr
 
@@ -470,7 +461,7 @@ class NatPMP:
 
         valid_ports = range(1, 65535)
         if src_port not in valid_ports:
-            raise Exception("Invalid port for forwarding.")
+            raise ValueError("Invalid port for forwarding.")
 
         # Source port is forwarded to same destination port number.
         if dest_port is None:
